@@ -204,7 +204,7 @@
         async function initExam() {
             try {
                 // 加载JSON题库
-                const response = await fetch('/data/questionBank.json');
+                const response = await fetch('/school/data/questionBank.json');
                 if (!response.ok) throw new Error('题库加载失败');
                 const data = await response.json();
                 
@@ -489,4 +489,5 @@
         });
     </script>
 </body>
+
 </html>
