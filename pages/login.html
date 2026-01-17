@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园刷题宝 - 登录</title>
+    <!-- 引用根目录的style.css（路径修正为../） -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <header class="auth-nav">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>校园刷题宝</h1>
+            </div>
+            <div class="auth-nav-links">
+                <a href="../index.html">返回首页</a>
+                <a href="register.html" class="register-link">立即注册</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-main">
+        <div class="container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>账号登录</h2>
+                    <p>选择您的身份登录，解锁对应权限</p>
+                </div>
+
+                <div class="role-tabs">
+                    <button class="role-tab active" data-role="student">
+                        <i class="fas fa-user-graduate"></i> 学生
+                    </button>
+                    <button class="role-tab" data-role="teacher">
+                        <i class="fas fa-chalkboard-teacher"></i> 老师
+                    </button>
+                    <button class="role-tab" data-role="admin">
+                        <i class="fas fa-user-shield"></i> 管理员
+                    </button>
+                </div>
+
+                <form class="auth-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="login-username">账号</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="login-username" placeholder="请输入手机号/学号/工号" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">密码</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="login-password" placeholder="请输入密码" required>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox"> 记住密码
+                        </label>
+                        <a href="#" class="forgot-pwd">忘记密码？</a>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">登录</button>
+                </form>
+
+                <div class="other-login">
+                    <p>其他登录方式</p>
+                    <div class="login-icons">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="auth-footer">
+        <div class="container">
+            <p>© 2026 校园刷题宝 版权所有 | 专为在校学生打造的刷题平台</p>
+        </div>
+    </footer>
+
+    <!-- 引用通用脚本（路径修正为../） -->
+    <script src="../js/common.js"></script>
+    <script>
+       // 等待页面完全加载后执行
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. 角色标签切换（依赖common.js也没关系，这里做兜底）
+    const roleTabs = document.querySelectorAll('.role-tab');
+    roleTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            roleTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        });
+    });
+
+    // 2. 登录表单提交核心逻辑（修复所有问题）
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) { // 确保找到表单元素
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // 阻止默认提交行为
+            
+            // ① 获取输入框值（和HTML里的ID严格对应）
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+            
+            // ② 基础校验
+            if (!username) {
+                alert('请输入账号！');
+                document.getElementById('login-username').focus(); // 聚焦到空输入框
+                return;
+            }
+            if (!password) {
+                alert('请输入密码！');
+                document.getElementById('login-password').focus();
+                return;
+            }
+            
+            // ③ 获取选中的角色
+            const activeRoleTab = document.querySelector('.role-tab.active');
+            const role = activeRoleTab ? activeRoleTab.dataset.role : 'student'; // 兜底默认学生
+            
+            // ④ 跳转路径（适配所有文件都在pages文件夹下）
+            let targetPage = '';
+            switch(role) {
+                case 'student':
+                    targetPage = './student.html'; // pages内同目录跳转
+                    break;
+                case 'teacher':
+                    targetPage = './teacher.html';
+                    break;
+                case 'admin':
+                    targetPage = './admin.html';
+                    break;
+                default:
+                    targetPage = './student.html';
+            }
+            
+            // ⑤ 提示+跳转（强制生效）
+            alert(`✅【${role}】登录成功！即将进入${role}中心`);
+            window.location.href = targetPage; // 核心跳转逻辑
+        });
+    }
+});
+    </script>
+</body>
+</html>

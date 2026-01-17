@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园刷题宝 - 注册</title>
+    <!-- 引用根目录的style.css（路径修正为../） -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <header class="auth-nav">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>校园刷题宝</h1>
+            </div>
+            <div class="auth-nav-links">
+                <a href="../index.html">返回首页</a>
+                <a href="login.html" class="login-link">立即登录</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-main">
+        <div class="container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>账号注册</h2>
+                    <p>填写以下信息，创建您的账号（仅开放学生/老师注册）</p>
+                </div>
+
+                <div class="role-tabs">
+                    <button class="role-tab active" data-role="student">
+                        <i class="fas fa-user-graduate"></i> 学生
+                    </button>
+                    <button class="role-tab" data-role="teacher">
+                        <i class="fas fa-chalkboard-teacher"></i> 老师
+                    </button>
+                </div>
+
+                <form class="auth-form" id="registerForm">
+                    <div class="form-group">
+                        <label for="reg-username">账号（手机号/学号/工号）</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="reg-username" placeholder="请输入账号" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">密码</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="reg-password" placeholder="请输入密码" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-repassword">确认密码</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="reg-repassword" placeholder="请再次输入密码" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-name">姓名</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-id-card"></i>
+                            <input type="text" id="reg-name" placeholder="请输入真实姓名" required>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" required> 我已阅读并同意<a href="#">用户协议</a>和<a href="#">隐私政策</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">注册账号</button>
+                </form>
+
+                <div class="other-login">
+                    <p>已有账号？<a href="login.html">立即登录</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="auth-footer">
+        <div class="container">
+            <p>© 2026 校园刷题宝 版权所有 | 专为在校学生打造的刷题平台</p>
+        </div>
+    </footer>
+
+    <!-- 引用通用脚本（路径修正为../） -->
+    <script src="../js/common.js"></script>
+    <script>
+        // 注册表单提交（跳转路径适配pages文件夹）
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('reg-username').value;
+            const password = document.getElementById('reg-password').value;
+            const repassword = document.getElementById('reg-repassword').value;
+            const name = document.getElementById('reg-name').value;
+            const role = document.querySelector('.role-tab.active').dataset.role;
+
+            if (!username || !password || !repassword || !name) {
+                alert('请填写完整信息！');
+                return;
+            }
+
+            if (password !== repassword) {
+                alert('两次密码不一致！');
+                return;
+            }
+
+            alert(`【${role}】账号注册成功！请登录`);
+            // 跳转路径修正：跳转到同目录的login.html
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>

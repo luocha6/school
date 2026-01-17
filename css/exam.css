@@ -1,0 +1,139 @@
+/* 刷题页面专属样式 */
+.exam-wrapper {
+    padding: 30px 0;
+    min-height: calc(100vh - 140px);
+    background-color: #f8f9fa;
+}
+
+.exam-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.exam-header {
+    padding: 20px;
+    background-color: #4a90e2;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.exam-title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.exam-meta {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+}
+
+.exam-body {
+    padding: 30px;
+}
+
+.question-box {
+    margin-bottom: 30px;
+}
+
+.question-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.option-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.option-item {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.option-item:hover {
+    border-color: #4a90e2;
+    background-color: #f5f9ff;
+}
+
+.option-item input {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.option-item label {
+    cursor: pointer;
+    flex: 1;
+}
+
+.exam-footer {
+    padding: 20px 30px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.exam-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-prev {
+    background-color: #95a5a6;
+    color: #fff;
+}
+
+.btn-next {
+    background-color: #4a90e2;
+    color: #fff;
+}
+
+.btn-submit {
+    background-color: #2ecc71;
+    color: #fff;
+}
+
+.exam-btn:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .exam-container {
+        width: 95%;
+    }
+    .exam-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    .exam-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .exam-btn {
+        width: 100%;
+    }
+}
