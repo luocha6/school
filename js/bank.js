@@ -45,15 +45,165 @@ document.addEventListener('DOMContentLoaded', function() {
     const bankTotalQuestions = document.getElementById('bank-total-questions');
     const bankCountdown = document.getElementById('bank-countdown');
     
-    // 错题弹窗元素
-    const bankErrorModal = document.getElementById('bank-errorModal');
-    const bankErrorList = document.getElementById('bank-errorList');
-    const bankErrorCount = document.getElementById('bank-error-count');
-    const bankCloseModal = document.getElementById('bank-closeModal');
-    const bankReviewBtn = document.getElementById('bank-reviewBtn');
-    const bankBackToBankBtn = document.getElementById('bank-backToBankBtn');
+    // 错题弹窗元素（提前定义，避免重复查找）
+    let bankErrorModal = null;
+    let bankErrorList = null;
+    let bankErrorCount = null;
+    let bankCloseModal = null;
+    let bankReviewBtn = null;
+    let bankBackToBankBtn = null;
 
-    // 题库按钮点击事件
+    // ========== 核心修复：初始化弹窗和按钮（提前创建，避免动态丢失） ==========
+    function initErrorModal() {
+        // 1. 创建/获取错题弹窗
+        bankErrorModal = document.getElementById('bank-errorModal');
+        if (!bankErrorModal) {
+            bankErrorModal = document.createElement('div');
+            bankErrorModal.id = 'bank-errorModal';
+            document.body.appendChild(bankErrorModal);
+        }
+
+        // 2. 创建弹窗内容容器（固定结构，避免动态重建丢失事件）
+        let modalContent = bankErrorModal.querySelector('.error-modal-content');
+        if (!modalContent) {
+            modalContent = document.createElement('div');
+            modalContent.className = 'error-modal-content';
+            bankErrorModal.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="margin: 0; font-size: 18px; font-weight: 600;">错题汇总</h3>
+                    <button id="bank-closeModal" style="padding: 5px 10px; background: #e74c3c; color: #fff; border: none; border-radius: 4px; cursor: pointer;">×</button>
+                </div>
+                <div style="margin-bottom: 20px; font-size: 14px;">
+                    错题数量：<span id="bank-error-count" style="color: #e74c3c; font-weight: 600;">0</span>道
+                </div>
+                <div id="bank-errorList" style="max-height: 60vh; overflow-y: auto;"></div>
+                <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                    <button id="bank-reviewBtn" style="padding: 8px 20px; background: #3498db; color: #fff; border: none; border-radius: 4px; cursor: pointer;">重新答题</button>
+                    <button id="bank-backToBankBtn" style="padding: 8px 20px; background: #95a5a6; color: #fff; border: none; border-radius: 4px; cursor: pointer;">返回题库</button>
+                </div>
+            `;
+            bankErrorModal.appendChild(modalContent);
+        }
+
+        // 3. 重新获取按钮元素（关键！）
+        bankCloseModal = document.getElementById('bank-closeModal');
+        bankReviewBtn = document.getElementById('bank-reviewBtn');
+        bankBackToBankBtn = document.getElementById('bank-backToBankBtn');
+        bankErrorCount = document.getElementById('bank-error-count');
+        bankErrorList = document.getElementById('bank-errorList');
+
+        // 4. 绑定弹窗按钮事件（一次性绑定，永久生效）
+        // 关闭弹窗（左上角叉号）
+        bankCloseModal.addEventListener('click', () => {
+            bankErrorModal.style.display = 'none';
+        });
+
+        // 重新答题
+        bankReviewBtn.addEventListener('click', () => {
+            bankErrorModal.style.display = 'none';
+            resetExamState();
+            loadQuestionBank(currentBankId);
+        });
+
+        // 返回题库列表
+        bankBackToBankBtn.addEventListener('click', () => {
+            bankErrorModal.style.display = 'none';
+            clearInterval(countdownTimer);
+            resetExamState();
+            // 切换回题库列表
+            contentSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            bankSection.classList.add('active');
+        });
+
+        // 5. 弹窗样式（解决无背景、无法滑动）
+        const modalStyle = document.createElement('style');
+        modalStyle.textContent = `
+            #bank-errorModal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+                padding: 20px;
+                box-sizing: border-box;
+                overflow-y: auto;
+            }
+            .error-modal-content {
+                background: #fff;
+                border-radius: 8px;
+                width: 100%;
+                max-width: 800px;
+                max-height: 90vh;
+                overflow-y: auto;
+                padding: 20px;
+                box-sizing: border-box;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            }
+            .error-item {
+                padding: 15px;
+                border-bottom: 1px solid #eee;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+            .error-item:hover {
+                background: #f8f9fa;
+            }
+            .error-item-title {
+                font-weight: 600;
+                margin-bottom: 8px;
+                font-size: 14px;
+            }
+            .error-item-answer {
+                font-size: 13px;
+                margin-bottom: 10px;
+            }
+            .your-answer {
+                color: #e74c3c;
+                font-weight: 600;
+            }
+            .correct-answer {
+                color: #27ae60;
+                font-weight: 600;
+            }
+            .error-detail {
+                display: none;
+                padding: 10px;
+                background: #fafafa;
+                border-radius: 4px;
+                margin-top: 10px;
+                font-size: 13px;
+            }
+            #exam-section {
+                background: #fff;
+                min-height: 100vh;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+            .option-item {
+                margin: 10px 0;
+            }
+        `;
+        document.head.appendChild(modalStyle);
+
+        // 6. 点击弹窗外层关闭
+        bankErrorModal.addEventListener('click', (e) => {
+            if (e.target === bankErrorModal) {
+                bankErrorModal.style.display = 'none';
+            }
+        });
+    }
+
+    // 初始化弹窗（页面加载时就创建，避免动态丢失）
+    initErrorModal();
+
+    // 题库按钮点击事件（修复变量未声明）
     const startButtons = document.querySelectorAll('.start-btn');
     startButtons.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -69,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 返回题库按钮事件
+    // 返回题库按钮事件（刷题页面的返回按钮）
     bankBackBtn.addEventListener('click', function() {
         // 停止倒计时
         clearInterval(countdownTimer);
@@ -106,24 +256,29 @@ document.addEventListener('DOMContentLoaded', function() {
                     examTitle = '高三英语3+2期末选择1';
             }
             
-           // 新增：打印日志，方便排查（可选，但建议保留）
-        console.log('当前选中的题库ID：', bankId);
-        console.log('加载的题库路径：', jsonPath);
-        
-        // 更新刷题标题
-        bankExamTitle.textContent = examTitle;
-        
-        // 加载题库数据（增加超时）
-        const response = await fetch(jsonPath, { timeout: 5000 });
-        if (!response.ok) {
-            throw new Error(`文件不存在，状态码：${response.status}`);
-        }
-        const data = await response.json();
-        
-        // 校验JSON格式
-        if (!data.questions || !Array.isArray(data.questions)) {
-            throw new Error('JSON格式错了：没有questions数组');
-        }
+            // 打印日志，方便排查
+            console.log('当前选中的题库ID：', bankId);
+            console.log('加载的题库路径：', jsonPath);
+            
+            // 更新刷题标题
+            bankExamTitle.textContent = examTitle;
+            
+            // 加载题库数据（增加超时）
+            const response = await fetch(jsonPath, { 
+                timeout: 5000,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`文件不存在，状态码：${response.status}`);
+            }
+            const data = await response.json();
+            
+            // 校验JSON格式
+            if (!data.questions || !Array.isArray(data.questions)) {
+                throw new Error('JSON格式错了：没有questions数组');
+            }
             
             // 保存原始题库
             originalQuestionBank = [...data.questions];
@@ -221,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     options: question.options,
                     yourAnswer: userAns || '未作答',
                     correctAnswer: question.answer,
-                    correctContent: question.options[question.answer.charCodeAt(0) - 65]
+                    correctContent: question.options[question.answer.charCodeAt(0) - 65] || ''
                 });
             }
         });
@@ -229,15 +384,28 @@ document.addEventListener('DOMContentLoaded', function() {
         // 停止倒计时
         clearInterval(countdownTimer);
         
+        // 显示得分提示
+        const score = (correctCount / questionBank.length) * 100;
+        alert(`交卷成功！你的得分：${score.toFixed(1)}分，错题数：${errorQuestions.length}道`);
+        
         // 显示错题弹窗
         showBankErrorModal();
     });
 
-    // 显示错题弹窗
+    // 显示错题弹窗（核心修复：只更新内容，不重建结构）
     function showBankErrorModal() {
+        // 更新错题数
         bankErrorCount.textContent = errorQuestions.length;
         bankErrorList.innerHTML = '';
         
+        // 无错题时的提示
+        if (errorQuestions.length === 0) {
+            bankErrorList.innerHTML = '<div style="text-align: center; padding: 20px; color: #27ae60;">恭喜！你没有错题 😊</div>';
+            bankErrorModal.style.display = 'flex';
+            return;
+        }
+        
+        // 渲染错题列表
         errorQuestions.forEach((error, index) => {
             const errorItem = document.createElement('div');
             errorItem.className = 'error-item';
@@ -245,7 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="error-item-title">${index + 1}. ${error.title.replace(/^\d+\./, '')}</div>
                 <div class="error-item-answer">
                     你的答案：<span class="your-answer">${error.yourAnswer}</span> | 
-                    正确答案：<span class="correct-answer">${error.correctAnswer}（${error.correctContent}）</span>
+                    正确答案：<span class="correct-answer">${error.correctAnswer}（${error.correctContent || '无'}）</span>
                 </div>
                 <div class="error-detail" id="bank-detail-${error.id}">
                     <div style="font-weight: 600; margin-bottom: 5px;">题目详情：</div>
@@ -260,7 +428,8 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             
             // 点击展开详情
-            errorItem.addEventListener('click', () => {
+            errorItem.addEventListener('click', (e) => {
+                e.stopPropagation(); // 阻止冒泡关闭弹窗
                 const detail = document.getElementById(`bank-detail-${error.id}`);
                 detail.style.display = detail.style.display === 'block' ? 'none' : 'block';
             });
@@ -268,39 +437,9 @@ document.addEventListener('DOMContentLoaded', function() {
             bankErrorList.appendChild(errorItem);
         });
         
+        // 显示弹窗
         bankErrorModal.style.display = 'flex';
     }
-
-    // 重新答题
-    bankReviewBtn.addEventListener('click', () => {
-        bankErrorModal.style.display = 'none';
-        resetExamState();
-        loadQuestionBank(currentBankId);
-    });
-
-    // 返回题库列表
-    bankBackToBankBtn.addEventListener('click', () => {
-        bankErrorModal.style.display = 'none';
-        clearInterval(countdownTimer);
-        resetExamState();
-        // 切换回题库列表
-        contentSections.forEach(section => {
-            section.classList.remove('active');
-        });
-        bankSection.classList.add('active');
-    });
-
-    // 关闭弹窗
-    bankCloseModal.addEventListener('click', () => {
-        bankErrorModal.style.display = 'none';
-    });
-
-    // 点击弹窗外层关闭
-    window.addEventListener('click', (e) => {
-        if (e.target === bankErrorModal) {
-            bankErrorModal.style.display = 'none';
-        }
-    });
 
     // 倒计时功能
     function startBankCountdown() {
@@ -335,6 +474,10 @@ document.addEventListener('DOMContentLoaded', function() {
         userAnswers = {};
         errorQuestions = [];
         clearInterval(countdownTimer);
+        // 重置倒计时显示
+        if (bankCountdown) {
+            bankCountdown.textContent = '100:00';
+        }
     }
 
     // ========== 工具函数 ==========
@@ -360,11 +503,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let newAnswer = '';
         const originalCorrectContent = question.options[question.answer.charCodeAt(0) - 65];
-        shuffledOptions.forEach(item => {
-            if (item.content === originalCorrectContent) {
-                newAnswer = String.fromCharCode(65 + shuffledOptions.indexOf(item));
-            }
-        });
+        // 修复：兼容正确答案匹配失败的情况
+        const correctItem = shuffledOptions.find(item => item.content === originalCorrectContent);
+        if (correctItem) {
+            newAnswer = String.fromCharCode(65 + shuffledOptions.indexOf(correctItem));
+        } else {
+            newAnswer = question.answer; // 兜底：保留原答案
+            console.warn('选项匹配失败，使用原答案', question.id);
+        }
 
         return {
             ...question,
