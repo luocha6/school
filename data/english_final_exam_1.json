@@ -1,0 +1,544 @@
+{
+    "questions": [
+        {
+            "id": 1,
+            "title": "I want to buy ______.",
+            "options": ["two bottles of ink", "two bottle of ink", "two bottle of inks", "two bottles of inks"],
+            "answer": "A"
+        },
+        {
+            "id": 2,
+            "title": "They don't have ______ today.",
+            "options": ["much homework", "many homeworks", "many homework", "much homeworks"],
+            "answer": "A"
+        },
+        {
+            "id": 3,
+            "title": "What impressed me most was that they never lost ______.",
+            "options": ["hearts", "heart", "their heart", "their hearts"],
+            "answer": "B"
+        },
+        {
+            "id": 4,
+            "title": "He said that two ______ would come to our school the next day.",
+            "options": ["woman scientist", "women scientist", "woman scientists", "women scientists"],
+            "answer": "D"
+        },
+        {
+            "id": 5,
+            "title": "There are three ______ and seven ______ in the picture.",
+            "options": ["cows; sheeps", "cows; sheep", "cow; sheep", "cow; sheeps"],
+            "answer": "B"
+        },
+        {
+            "id": 6,
+            "title": "June 1 is ______.",
+            "options": ["children's day", "children's Day", "Children's Day", "Children Day"],
+            "answer": "C"
+        },
+        {
+            "id": 7,
+            "title": "______ room is next to their parents.",
+            "options": ["Kate's and Joan's", "Kate's and Joan", "Kate and Joan's", "Kate and Joan"],
+            "answer": "C"
+        },
+        {
+            "id": 8,
+            "title": "Ms. Green is a friend of ______.",
+            "options": ["Mary's mother's", "Mary's mother", "Mary mother's", "mother's of Mary"],
+            "answer": "A"
+        },
+        {
+            "id": 9,
+            "title": "Tom is ______. He will come to see me.",
+            "options": ["my a friend", "friend of mine", "mine friend", "a friend of mine"],
+            "answer": "D"
+        },
+        {
+            "id": 10,
+            "title": "Let the children go away. They're making too much ______ here.",
+            "options": ["noise", "voice", "noisy", "sound"],
+            "answer": "A"
+        },
+        {
+            "id": 11,
+            "title": "If you go by ______ train, you can have quite a comfortable journey, but make sure you get ______ fast one.",
+            "options": ["/ ; /", "/ ; a", "the ; a", "/ ; /"],
+            "answer": "B"
+        },
+        {
+            "id": 12,
+            "title": "______ old lady in brown is ______ university professor.",
+            "options": ["An; a", "An; /", "The; an", "The; a"],
+            "answer": "D"
+        },
+        {
+            "id": 13,
+            "title": "Bill is ______ English teacher. He likes playing ______ football.",
+            "options": ["a; the", "an; the", "an; /", "/; /"],
+            "answer": "C"
+        },
+        {
+            "id": 14,
+            "title": "The museum is quite far. It will take you half ______ hour to go there by ______ bus.",
+            "options": ["an; /", "an; a", "a; /", "/; /"],
+            "answer": "A"
+        },
+        {
+            "id": 15,
+            "title": "If you grow up in ______ large family, you are more likely to develop ______ ability to get on well with ______ others.",
+            "options": ["/; an; the", "a; the; /", "the; an; the", "a; the; the"],
+            "answer": "B"
+        },
+        {
+            "id": 16,
+            "title": "Mrs Taylor has ______ 8-year-old daughter who has ______ gift for painting – she has won two national prizes.",
+            "options": ["a; a", "an; the", "an; a", "the; the"],
+            "answer": "C"
+        },
+        {
+            "id": 17,
+            "title": "This is ______ interesting story-book and it is also ______ useful one.",
+            "options": ["a; a", "an; an", "an; a", "a; an"],
+            "answer": "C"
+        },
+        {
+            "id": 18,
+            "title": "______ woman over there is ______ popular teacher in our school.",
+            "options": ["A; an", "The; a", "The ; the", "A; the"],
+            "answer": "B"
+        },
+        {
+            "id": 19,
+            "title": "They passed our school ______ day before yesterday.",
+            "options": ["an", "one", "a", "the"],
+            "answer": "D"
+        },
+        {
+            "id": 20,
+            "title": "Australia is ______ English-speaking country.",
+            "options": ["a", "an", "the", "/"],
+            "answer": "B"
+        },
+        {
+            "id": 21,
+            "title": "September is the ______ month of the year.",
+            "options": ["eighth", "ninth", "tenth", "eleventh"],
+            "answer": "B"
+        },
+        {
+            "id": 22,
+            "title": "The People's Republic of China was founded ______.",
+            "options": ["on October the first, 1949", "in October the first, 1949", "on October one, 1949", "on October first one, 1949"],
+            "answer": "A"
+        },
+        {
+            "id": 23,
+            "title": "There are ______ days in a year.",
+            "options": ["three hundreds and sixty-five", "three hundreds and fifty-six", "three hundreds of sixty-five", "three hundred and sixty-five"],
+            "answer": "D"
+        },
+        {
+            "id": 24,
+            "title": "Please turn to ______.",
+            "options": ["page 11", "the 11st page", "the page 11", "page the 11th"],
+            "answer": "A"
+        },
+        {
+            "id": 25,
+            "title": "At night we can see ______ stars in the sky.",
+            "options": ["thousands and thousands of", "thousand and thousands of", "a thousand and thousands", "thousand and thousand"],
+            "answer": "A"
+        },
+        {
+            "id": 26,
+            "title": "We live in ______.",
+            "options": ["the twenty-first century", "the century twenty-one", "century twenty-one", "the century twenty-first"],
+            "answer": "A"
+        },
+        {
+            "id": 27,
+            "title": "There are ______ days in February.",
+            "options": ["thirty", "thirty-one", "twenty-eight", "twenty-six"],
+            "answer": "C"
+        },
+        {
+            "id": 28,
+            "title": "— How many English books are there on the table? — There is only ______ English book on it.",
+            "options": ["a", "an", "one", "the"],
+            "answer": "C"
+        },
+        {
+            "id": 29,
+            "title": "What row are you in? I am in ______.",
+            "options": ["Row One", "Row First", "Row one", "One Row"],
+            "answer": "A"
+        },
+        {
+            "id": 30,
+            "title": "At the age of ______, he was a worker.",
+            "options": ["twenty", "the twenty", "twentieth", "twenties"],
+            "answer": "A"
+        },
+        {
+            "id": 31,
+            "title": "He is rich, ______ he isn't happy.",
+            "options": ["or", "so", "and", "but"],
+            "answer": "D"
+        },
+        {
+            "id": 32,
+            "title": "Study hard, ______ you won’t pass the coming English exam.",
+            "options": ["and", "but", "or", "if"],
+            "answer": "C"
+        },
+        {
+            "id": 33,
+            "title": "He ran ______ fast ______ he won the race.",
+            "options": ["enough; to", "so; that", "too; to", "both; and"],
+            "answer": "B"
+        },
+        {
+            "id": 34,
+            "title": "The little boy won’t go to sleep ______ his mother tells him a story.",
+            "options": ["or", "unless", "but", "whether"],
+            "answer": "B"
+        },
+        {
+            "id": 35,
+            "title": "My father was reading ______ I was doing my homework.",
+            "options": ["before", "when", "while", "until"],
+            "answer": "C"
+        },
+        {
+            "id": 36,
+            "title": "Though he studied hard, ______ he didn’t pass the exam.",
+            "options": ["but", "/", "however", "and"],
+            "answer": "B"
+        },
+        {
+            "id": 37,
+            "title": "Sue is ill, ______ she can’t go to school today.",
+            "options": ["because", "when", "so", "and"],
+            "answer": "C"
+        },
+        {
+            "id": 38,
+            "title": "You’d better do it ______ your mother did.",
+            "options": ["when", "as", "like", "because"],
+            "answer": "B"
+        },
+        {
+            "id": 39,
+            "title": "A computer can only do ______ you have told it to do.",
+            "options": ["how", "after", "what", "when"],
+            "answer": "C"
+        },
+        {
+            "id": 40,
+            "title": "Mr Smith comes from Australia, but he has worked in China for five years. So you can talk with him ______.",
+            "options": ["either in English or in Chinese", "not in Chinese but in English", "just in English, not in Chinese", "neither in Chinese nor in English"],
+            "answer": "A"
+        },
+        {
+            "id": 41,
+            "title": "______ bedroom is larger than ______.",
+            "options": ["Our; your", "Yours; theirs", "Theirs; ours", "Their; ours"],
+            "answer": "D"
+        },
+        {
+            "id": 42,
+            "title": "— Li Gang and Wang Lin have been away. They can’t help us with the work. — Let's do it ______.",
+            "options": ["ourselves", "themselves", "yourselves", "myself"],
+            "answer": "A"
+        },
+        {
+            "id": 43,
+            "title": "Look at the cat. ______ washing ______ paws.",
+            "options": ["Its; its", "It; its", "It's; its", "It's; it's"],
+            "answer": "C"
+        },
+        {
+            "id": 44,
+            "title": "All the students have gone to the Science Museum except ______.",
+            "options": ["her and his", "him and me", "she and him", "he and I"],
+            "answer": "B"
+        },
+        {
+            "id": 45,
+            "title": "______ will be sent to Germany for the training.",
+            "options": ["I, you and he", "He, I and you", "You, she and I", "I, you and they"],
+            "answer": "C"
+        },
+        {
+            "id": 46,
+            "title": "The population of China is larger than ______ of India.",
+            "options": ["one", "those", "these", "that"],
+            "answer": "D"
+        },
+        {
+            "id": 47,
+            "title": "The players from Europe are taller than ______ from Asia.",
+            "options": ["those", "these", "that", "they"],
+            "answer": "A"
+        },
+        {
+            "id": 48,
+            "title": "He found ______ impossible to work out the problem by ______.",
+            "options": ["that; ourselves", "it; myself", "it; himself", "that; himself"],
+            "answer": "C"
+        },
+        {
+            "id": 49,
+            "title": "______ took us two hours to repair the refrigerator.",
+            "options": ["This", "It's", "That", "It"],
+            "answer": "D"
+        },
+        {
+            "id": 50,
+            "title": "— Who is singing in the next room? — ______ must be Mary.",
+            "options": ["She", "This", "It", "He"],
+            "answer": "C"
+        },
+        {
+            "id": 51,
+            "title": "Would you please say it ______? I still can't follow you.",
+            "options": ["more slow", "much slow", "more slowly", "much slowlier"],
+            "answer": "C"
+        },
+        {
+            "id": 52,
+            "title": "Nothing could be ______ time.",
+            "options": ["so important than", "important as", "most important of", "more important than"],
+            "answer": "D"
+        },
+        {
+            "id": 53,
+            "title": "The little baby looks ______.",
+            "options": ["sadly", "happily", "lovely", "carefully"],
+            "answer": "C"
+        },
+        {
+            "id": 54,
+            "title": "What a ______ cough! You seem ______ ill.",
+            "options": ["terrible; terribly", "terribly; terrible", "terrible; terrible", "terribly; terribly"],
+            "answer": "A"
+        },
+        {
+            "id": 55,
+            "title": "I don't think Lesson 6 is more difficult. I think it is ______.",
+            "options": ["more easily", "any easier", "much easier", "much easy"],
+            "answer": "C"
+        },
+        {
+            "id": 56,
+            "title": "If there were no examinations, we should have ______ at school.",
+            "options": ["the happiest time", "a more happier time", "much happiest time", "a much happier time"],
+            "answer": "D"
+        },
+        {
+            "id": 57,
+            "title": "— Does Tom like potatoes? — He ______ never eats vegetables.",
+            "options": ["hardly", "always", "nearly", "almost"],
+            "answer": "D"
+        },
+        {
+            "id": 58,
+            "title": "— The dress is very expensive. — Don’t worry. Here’s another one. It's nice and ______, I think.",
+            "options": ["cheap", "dear", "easy", "difficult"],
+            "answer": "A"
+        },
+        {
+            "id": 59,
+            "title": "Don't worry, sir. I'm sure I can run ______ to catch up with them.",
+            "options": ["quick enough", "enough slowly", "fast enough", "enough fast"],
+            "answer": "C"
+        },
+        {
+            "id": 60,
+            "title": "If you like the chicken, you may have as ______ as you can.",
+            "options": ["much", "many", "more", "little"],
+            "answer": "A"
+        },
+        {
+            "id": 61,
+            "title": "Don't make so much noise. We ______ to the music.",
+            "options": ["listened", "listen", "are listening", "have listened"],
+            "answer": "C"
+        },
+        {
+            "id": 62,
+            "title": "I must return the camera to Li Lei. I ______ it for two weeks.",
+            "options": ["keep", "borrowed", "have kept", "have lent"],
+            "answer": "C"
+        },
+        {
+            "id": 63,
+            "title": "— When will you tell him the good news? — I will tell him about it as soon as he ______ back.",
+            "options": ["comes", "came", "will come", "is coming"],
+            "answer": "A"
+        },
+        {
+            "id": 64,
+            "title": "— Dad, please open the door, it ______. — OK, dear. I'm coming.",
+            "options": ["locks", "locked", "is locked", "was locked"],
+            "answer": "C"
+        },
+        {
+            "id": 65,
+            "title": "— Did you go to Jim's birthday party? — No, I ______.",
+            "options": ["am not invited", "wasn’t invited", "haven’t invited", "didn’t invite"],
+            "answer": "B"
+        },
+        {
+            "id": 66,
+            "title": "A talk on Chinese history ______ in the school hall next week.",
+            "options": ["be given", "has been given", "will be given", "will give"],
+            "answer": "C"
+        },
+        {
+            "id": 67,
+            "title": "You may go fishing if your work ______.",
+            "options": ["is done", "will be done", "has done", "have done"],
+            "answer": "A"
+        },
+        {
+            "id": 68,
+            "title": "— What do you think of the football match yesterday? — Well. It's surprising. The strongest team of our school ______.",
+            "options": ["was beaten", "won", "scored", "was failed"],
+            "answer": "A"
+        },
+        {
+            "id": 69,
+            "title": "— Oh, it's you? I didn't recognize you. — I ______ my hair cut, and I ______ new glasses.",
+            "options": ["had; was wearing", "have had; am wearing", "had; wore", "have had; wear"],
+            "answer": "B"
+        },
+        {
+            "id": 70,
+            "title": "The trees must ______ three times a week.",
+            "options": ["water", "is watering", "be watered", "waters"],
+            "answer": "C"
+        },
+        {
+            "id": 71,
+            "title": "We hope that as many people as possible ______  join us for the picnic tomorrow.",
+            "options": ["need", "must", "should", "can"],
+            "answer": "D"
+        },
+        {
+            "id": 72,
+            "title": "You don't have to know the name of the author to find a book. You ______ find the book by the title.",
+            "options": ["must", "need", "can", "would"],
+            "answer": "C"
+        },
+        {
+            "id": 73,
+            "title": "— It's the office! So you ______ know eating is not allowed here. — Oh, sorry.",
+            "options": ["must", "will", "may", "need"],
+            "answer": "A"
+        },
+        {
+            "id": 74,
+            "title": "What do you mean, there are only ten tickets? There ______ be twelve.",
+            "options": ["should", "would", "will", "shall"],
+            "answer": "A"
+        },
+        {
+            "id": 75,
+            "title": "— Must he come to sign this paper himself? — Yes, he ______.",
+            "options": ["need", "must", "may", "will"],
+            "answer": "B"
+        },
+        {
+            "id": 76,
+            "title": "— Must I finish my homework now? — No, you ______. You can take a rest and have some snacks.",
+            "options": ["mustn't", "can't", "needn't", "don't have"],
+            "answer": "C"
+        },
+        {
+            "id": 77,
+            "title": "— May I stop my car here? — No, you ______. There's a large parking area behind the bank.",
+            "options": ["can't", "mustn't", "needn't", "don't have to"],
+            "answer": "B"
+        },
+        {
+            "id": 78,
+            "title": "You ______ return the book now. You can keep it next week if you like.",
+            "options": ["can't", "mustn't", "needn't", "may not"],
+            "answer": "C"
+        },
+        {
+            "id": 79,
+            "title": "Johnny, you ______ play with the knife. You ______ hurt yourself.",
+            "options": ["won't; can't", "mustn't; may", "shouldn't; must", "can't; shouldn't"],
+            "answer": "B"
+        },
+        {
+            "id": 80,
+            "title": "— Would you open the window, please? — Yes, I ______.",
+            "options": ["will", "would", "do", "can"],
+            "answer": "A"
+        },
+        {
+            "id": 81,
+            "title": "— Hi, Tom. Any idea where Jane is? — She ______ in the classroom. I saw her there just now.",
+            "options": ["shall be", "should have been", "must be", "might have been"],
+            "answer": "C"
+        },
+        {
+            "id": 82,
+            "title": "She ______ have left school, for her bike is still here.",
+            "options": ["can't", "wouldn't", "shouldn't", "needn't"],
+            "answer": "A"
+        },
+        {
+            "id": 83,
+            "title": "— I'm sorry. I ______ at you the other day. — Forget it. I was a bit out of control myself.",
+            "options": ["shouldn't shout", "shouldn't have shouted", "mustn't shout", "mustn't have shouted"],
+            "answer": "B"
+        },
+        {
+            "id": 84,
+            "title": "My MP4 player isn't in my bag. Where ______ I have put it?",
+            "options": ["can", "must", "should", "would"],
+            "answer": "A"
+        },
+        {
+            "id": 85,
+            "title": "— Guess what? I have got A for my term paper. — Great! You ______ read widely and put a lot of work into it.",
+            "options": ["must", "should", "must have", "should have"],
+            "answer": "C"
+        },
+        {
+            "id": 86,
+            "title": "You are late. If you ______ a few minutes earlier, you ______ him.",
+            "options": ["come; would meet", "had come; would have met", "come; will meet", "had come; would meet"],
+            "answer": "B"
+        },
+        {
+            "id": 87,
+            "title": "The two students talked as if they ______ friends for years.",
+            "options": ["should be", "would be", "have been", "had been"],
+            "answer": "D"
+        },
+        {
+            "id": 88,
+            "title": "It is important that I ______ with Mr Williams immediately.",
+            "options": ["speak", "spoke", "will speak", "to speak"],
+            "answer": "A"
+        },
+        {
+            "id": 89,
+            "title": "I can't stand him. He always talks as though he ______ everything.",
+            "options": ["knew", "knows", "has known", "had known"],
+            "answer": "A"
+        },
+        {
+            "id": 90,
+            "title": "My father did not go to New York; the doctor suggested that he ______ there.",
+            "options": ["not went", "won’t go", "not go", "not to go"],
+            "answer": "C"
+        }
+    ]
+}
