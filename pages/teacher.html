@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园刷题宝 - 教师中心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
+    <link rel="stylesheet" href="../assets/css/teacher.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>校园刷题宝</h1>
+            </div>
+            <nav class="nav-links">
+                <a href="../index.html">首页</a>
+                <a href="teacher.html" class="active">教师中心</a>
+                <a href="#" id="logoutBtn">退出登录</a>
+            </nav>
+            <button class="menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <div class="main-content-wrapper">
+    <section class="teacher-dashboard">
+        <div class="container">
+            <div class="dashboard-grid">
+                <aside class="sidebar">
+                    <div class="user-profile">
+                        <img id="avatar-preview" src="../assets/images/default-avatar.png" alt="教师头像">
+                        <div class="avatar-upload">
+                            <input type="file" id="avatar-file" accept="image/jpeg,image/png,image/gif">
+                            <button type="button" id="upload-btn" class="btn">更换头像</button>
+                            <span id="upload-status" class="upload-status"></span>
+                        </div>
+                        <h4 id="teacherName">李老师</h4>
+                        <p id="teacherDept">计算机学院</p>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="menu-item active" data-target="home-section"><i class="fas fa-home"></i> 教师主页</a></li>
+                        <li><a href="#" class="menu-item" data-target="bank-section"><i class="fas fa-book"></i> 题库管理</a></li>
+                        <li><a href="#" class="menu-item" data-target="students-section"><i class="fas fa-users"></i> 学生管理</a></li>
+                        <li><a href="#" class="menu-item" data-target="stats-section"><i class="fas fa-chart-pie"></i> 成绩统计</a></li>
+                        <li><a href="#" class="menu-item" data-target="settings-section"><i class="fas fa-cog"></i> 个人设置</a></li>
+                    </ul>
+                </aside>
+
+                <main class="main-content">
+                    <div id="home-section" class="content-section active">
+                        <h2><i class="fas fa-home"></i> 教师工作台</h2>
+                        <div class="stats-cards">
+                            <div class="stat-card">
+                                <i class="fas fa-book"></i>
+                                <h3 id="totalBanks">3</h3>
+                                <p>已创建题库</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-question-circle"></i>
+                                <h3 id="totalQuestions">160</h3>
+                                <p>题目总数</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-users"></i>
+                                <h3 id="totalStudents">120</h3>
+                                <p>学生数量</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-chart-line"></i>
+                                <h3 id="avgScore">78.5</h3>
+                                <p>平均分数</p>
+                            </div>
+                        </div>
+                        <div class="recent">
+                            <h3><i class="fas fa-history"></i> 最近操作</h3>
+                            <ul id="recentActions">
+                                <li>2026-01-10 创建了《高三英语3+2期末选择1》题库</li>
+                                <li>2026-01-08 上传了 90 道新题目</li>
+                                <li>2026-01-05 查看了学生成绩统计</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="bank-section" class="content-section">
+                        <h2><i class="fas fa-book"></i> 题库管理</h2>
+                        <div class="action-bar">
+                            <input type="text" placeholder="搜索题库..." style="padding:8px 15px;border:1px solid #ddd;border-radius:5px;width:200px;">
+                            <button class="btn-primary" onclick="showAddBankModal()"><i class="fas fa-plus"></i> 新建题库</button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>题库名称</th>
+                                    <th>题目数量</th>
+                                    <th>创建时间</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bankTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="students-section" class="content-section">
+                        <h2><i class="fas fa-users"></i> 学生管理</h2>
+                        <div class="action-bar">
+                            <div>
+                                <input type="text" placeholder="搜索学生..." style="padding:8px 15px;border:1px solid #ddd;border-radius:5px;width:200px;">
+                                <select id="classFilter" style="padding:8px 15px;border:1px solid #ddd;border-radius:5px;margin-left:10px;">
+                                    <option value="all">全部班级</option>
+                                    <option value="class1">计算机1班</option>
+                                    <option value="class2">计算机2班</option>
+                                    <option value="class3">软件工程1班</option>
+                                    <option value="class4">软件工程2班</option>
+                                </select>
+                            </div>
+                            <button class="btn-primary" onclick="showAddStudentModal()"><i class="fas fa-user-plus"></i> 添加学生</button>
+                        </div>
+                        <div id="studentsList">
+                            <div class="student-card" data-class="class1">
+                                <div class="student-info">
+                                    <h4>张三</h4>
+                                    <p>学号: 2021001 | 计算机科学与技术 | 计算机1班</p>
+                                </div>
+                                <div class="student-stats">
+                                    <div class="score">85分</div>
+                                    <p style="font-size:12px;color:#999;">最近成绩</p>
+                                    <button class="btn-action btn-view" onclick="viewStudentRecords('2021003', '王五')">查看记录</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="stats-section" class="content-section">
+                        <h2><i class="fas fa-chart-pie"></i> 成绩查询</h2>
+                        <div class="action-bar">
+                            <div>
+                                <input type="text" id="studentNameSearch" placeholder="输入学生姓名..." style="padding:8px 15px;border:1px solid #ddd;border-radius:5px;width:200px;">
+                                <button class="btn-primary" onclick="searchStudentScores()" style="margin-left:10px;"><i class="fas fa-search"></i> 查询</button>
+                            </div>
+                        </div>
+                        <div id="studentScoresResult" style="margin-top:20px;">
+                            <div class="chart-container">
+                                <div class="chart-title">学生成绩记录</div>
+                                <div id="studentScoresList" style="text-align:center;padding:40px;color:#999;">
+                                    <p>请输入学生姓名进行查询</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="settings-section" class="content-section">
+                        <h2><i class="fas fa-cog"></i> 个人设置</h2>
+                        <div style="max-width:500px;">
+                            <div class="form-group">
+                                <label>姓名</label>
+                                <input type="text" id="settings-name" value="李老师">
+                            </div>
+                            <div class="form-group">
+                                <label>所属院系</label>
+                                <input type="text" id="settings-dept" value="计算机学院">
+                            </div>
+                            <div class="form-group">
+                                <label>联系电话</label>
+                                <input type="text" id="settings-phone" value="13800138000">
+                            </div>
+                            <div class="form-group">
+                                <label>邮箱</label>
+                                <input type="email" id="settings-email" value="li@school.edu.cn">
+                            </div>
+                            <button class="btn-primary" onclick="saveTeacherSettings()">保存设置</button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <div class="modal" id="addBankModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>新建题库</h3>
+                <button class="close-modal" onclick="closeModal('addBankModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>题库名称</label>
+                <input type="text" placeholder="请输入题库名称">
+            </div>
+            <div class="form-group">
+                <label>学科分类</label>
+                <select>
+                    <option>英语</option>
+                    <option>数学</option>
+                    <option>计算机</option>
+                    <option>其他</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>题库描述</label>
+                <textarea placeholder="请输入题库描述"></textarea>
+            </div>
+            <button class="btn-primary" style="width:100%;" onclick="alert('题库创建成功！');closeModal('addBankModal');">创建题库</button>
+        </div>
+    </div>
+
+    <div class="modal" id="addStudentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>添加学生</h3>
+                <button class="close-modal" onclick="closeModal('addStudentModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>学生姓名</label>
+                <input type="text" placeholder="请输入学生姓名">
+            </div>
+            <div class="form-group">
+                <label>学号</label>
+                <input type="text" placeholder="请输入学号">
+            </div>
+            <div class="form-group">
+                <label>专业</label>
+                <input type="text" placeholder="请输入专业">
+            </div>
+            <button class="btn-primary" style="width:100%;" onclick="alert('学生添加成功！');closeModal('addStudentModal');">添加学生</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 校园刷题宝 版权所有</p>
+        </div>
+    </footer>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/teacher.js"></script>
+</body>
+</html>

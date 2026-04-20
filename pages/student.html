@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园刷题宝 - 学生中心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
+    <link rel="stylesheet" href="../assets/css/student.css">
+    <link rel="stylesheet" href="../assets/css/exam.css">
+    <link rel="stylesheet" href="../assets/css/bank.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>校园刷题宝</h1>
+            </div>
+            <nav class="nav-links">
+                <a href="../index.html">首页</a>
+                <a href="student.html" class="active">学生中心</a>
+                <a href="exam.html">在线刷题</a>
+                <a href="#" id="logoutBtn">退出登录</a>
+            </nav>
+            <div class="nav-dropdown">
+                <button class="dropdown-btn"><i class="fas fa-bars"></i></button>
+                <div class="dropdown-menu">
+                    <a href="../index.html">首页</a>
+                    <a href="student.html">学生中心</a>
+                    <a href="exam.html">在线刷题</a>
+                    <a href="#" id="dropdown-logoutBtn">退出登录</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content-wrapper">
+    <section class="student-dashboard">
+        <div class="container">
+            <div class="dashboard-grid">
+                <aside class="sidebar">
+                    <div class="user-profile">
+                        <img id="avatar-preview" src="../assets/images/default-avatar.png" alt="学生头像">
+                        <div class="avatar-upload">
+                            <input type="file" id="avatar-file" accept="image/jpeg,image/png,image/gif">
+                            <button type="button" id="upload-btn" class="btn">更换头像</button>
+                            <span id="upload-status" class="upload-status"></span>
+                        </div>
+                        <h4 id="userName">张三</h4>
+                        <p id="userMajor">计算机科学与技术专业</p>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="menu-item active" data-target="home-section"><i class="fas fa-home"></i> 个人主页</a></li>
+                        <li><a href="#" class="menu-item" data-target="bank-section"><i class="fas fa-book"></i> 我的题库</a></li>
+                        <li><a href="#" class="menu-item" data-target="error-section"><i class="fas fa-list-alt"></i> 错题本</a></li>
+                        <li><a href="#" class="menu-item" data-target="stats-section"><i class="fas fa-chart-line"></i> 学习统计</a></li>
+                        <li><a href="#" class="menu-item" data-target="settings-section"><i class="fas fa-cog"></i> 个人设置</a></li>
+                    </ul>
+                </aside>
+
+                <main class="main-content">
+                    <div id="home-section" class="content-section active">
+                        <h2><i class="fas fa-home"></i> 学生工作台</h2>
+                        <div class="stats-cards">
+                            <div class="stat-card">
+                                <i class="fas fa-edit"></i>
+                                <h3 id="totalQuestions">0</h3>
+                                <p>已刷题数</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-check-circle"></i>
+                                <h3 id="correctRate">0%</h3>
+                                <p>正确率</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-times-circle"></i>
+                                <h3 id="errorCount">0</h3>
+                                <p>错题数</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-calendar-check"></i>
+                                <h3 id="todayCount">0</h3>
+                                <p>今日刷题</p>
+                            </div>
+                        </div>
+                        <div class="recommend">
+                            <h3><i class="fas fa-star"></i> 推荐练习</h3>
+                            <ul>
+                                <li onclick="startExam('english-1')" style="cursor:pointer;color:#4a90e2;">高三英语3+2期末选择1</li>
+                                <li onclick="startExam('english-2')" style="cursor:pointer;color:#4a90e2;">高三英语3+2期末选择2</li>
+                                <li onclick="startExam('data-structure')" style="cursor:pointer;color:#4a90e2;">数据结构基础题</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="bank-section" class="content-section">
+                        <h2><i class="fas fa-book"></i> 我的题库</h2>
+                        <div class="question-bank-list">
+                            <div class="bank-item">
+                                <div class="bank-info">
+                                    <h4>高三英语3+2期末选择1</h4>
+                                    <p>共90题 | 选择题 | 难度：中等</p>
+                                </div>
+                                <div class="bank-action">
+                                    <button class="bank-btn start-btn" data-bank-id="english-1">开始刷题</button>
+                                </div>
+                            </div>
+                            <div class="bank-item">
+                                <div class="bank-info">
+                                    <h4>高三英语3+2期末选择2</h4>
+                                    <p>共50题 | 选择题 | 难度：简单</p>
+                                </div>
+                                <div class="bank-action">
+                                    <button class="bank-btn start-btn" data-bank-id="english-2">开始刷题</button>
+                                </div>
+                            </div>
+                            <div class="bank-item">
+                                <div class="bank-info">
+                                    <h4>数据结构基础题</h4>
+                                    <p>共20题 | 选择题 | 难度：较难</p>
+                                </div>
+                                <div class="bank-action">
+                                    <button class="bank-btn start-btn" data-bank-id="data-structure">开始刷题</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="error-section" class="content-section">
+                        <h2><i class="fas fa-list-alt"></i> 错题本</h2>
+                        <div id="errorListContainer" class="error-list-container"></div>
+                    </div>
+
+                    <div id="stats-section" class="content-section">
+                        <h2><i class="fas fa-chart-line"></i> 学习统计</h2>
+                        <div class="chart-container">
+                            <div class="chart-title">近7天刷题数量</div>
+                            <div class="bar-chart" id="weeklyChart"></div>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-title">答题记录</div>
+                            <div id="historyList"></div>
+                        </div>
+                    </div>
+
+                    <div id="settings-section" class="content-section">
+                        <h2><i class="fas fa-cog"></i> 个人设置</h2>
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label for="settings-name">姓名</label>
+                                <input type="text" id="settings-name" value="张三">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-major">专业</label>
+                                <input type="text" id="settings-major" value="计算机科学与技术">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-old-pwd">原密码</label>
+                                <input type="password" id="settings-old-pwd" placeholder="请输入原密码">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-new-pwd">新密码</label>
+                                <input type="password" id="settings-new-pwd" placeholder="请输入新密码">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-confirm-pwd">确认新密码</label>
+                                <input type="password" id="settings-confirm-pwd" placeholder="请再次输入新密码">
+                            </div>
+                            <button class="btn-save" onclick="saveSettings()">保存设置</button>
+                        </div>
+                    </div>
+
+                    <div id="exam-section" class="content-section" style="background-color: #f8f9fa; min-height: calc(100vh - 140px); padding: 30px 0;">
+                        <div style="width: 90%; max-width: 1000px; margin: 0 auto; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden;">
+                            <div class="exam-header">
+                                <h2 class="exam-title" id="bank-exam-title">刷题界面</h2>
+                                <div class="exam-meta">
+                                    <span><i class="fas fa-question-circle"></i> 共<span id="bank-total-questions">10</span>题</span>
+                                    <span><i class="fas fa-clock"></i> 剩余时间：<span id="bank-countdown">100:00</span></span>
+                                    <span><i class="fas fa-list-ol"></i> 当前第<span id="bank-current-question-num">1</span>题</span>
+                                </div>
+                            </div>
+                            <div class="exam-body">
+                                <div class="question-box">
+                                    <h3 class="question-title" id="bank-question-title">加载中...</h3>
+                                    <div class="option-list" id="bank-option-list"></div>
+                                </div>
+                            </div>
+                            <div class="exam-footer">
+                                <button class="exam-btn btn-prev" id="bank-prev-btn" disabled>上一题</button>
+                                <div>
+                                    <button class="exam-btn btn-next" id="bank-next-btn">下一题</button>
+                                    <button class="exam-btn btn-submit" id="bank-submit-btn">提交试卷</button>
+                                    <button class="exam-btn btn-back-bank" id="bank-back-btn">返回题库</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="error-modal" id="bank-errorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000;">
+                        <div class="error-modal-content" style="background: white; padding: 30px; border-radius: 10px; width: 90%; max-width: 800px; max-height: 80vh; overflow-y: auto;">
+                            <div class="error-header">
+                                <div class="error-title">错题回顾（共<span id="bank-error-count">0</span>题）</div>
+                                <button class="close-modal" id="bank-closeModal" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">&times;</button>
+                            </div>
+                            <div class="error-list" id="bank-errorList"></div>
+                            <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                                <button class="modal-btn btn-review" id="bank-reviewBtn" style="padding: 10px 20px; background: #4a90e2; color: white; border: none; border-radius: 5px; cursor: pointer;">重新答题</button>
+                                <button class="modal-btn btn-back" id="bank-backToBankBtn" style="padding: 10px 20px; background: #95a5a6; color: white; border: none; border-radius: 5px; cursor: pointer;">返回题库列表</button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 校园刷题宝 版权所有</p>
+        </div>
+    </footer>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/student.js"></script>
+</body>
+</html>

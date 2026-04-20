@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园刷题宝 - 管理后台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>校园刷题宝</h1>
+            </div>
+            <nav class="nav-links">
+                <a href="../index.html">首页</a>
+                <a href="admin.html" class="active">管理后台</a>
+                <a href="#" id="logoutBtn">退出登录</a>
+            </nav>
+            <button class="menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <div class="main-content-wrapper">
+    <section class="admin-dashboard">
+        <div class="container">
+            <div class="dashboard-grid">
+                <aside class="sidebar">
+                    <div class="admin-profile">
+                        <img id="avatar-preview" src="../assets/images/default-avatar.png" alt="管理员头像">
+                        <div class="avatar-upload">
+                            <input type="file" id="avatar-file" accept="image/jpeg,image/png,image/gif">
+                            <button type="button" id="upload-btn" class="btn">更换头像</button>
+                            <span id="upload-status" class="upload-status"></span>
+                        </div>
+                        <h4 id="adminName">管理员</h4>
+                        <p>系统超级管理员</p>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="menu-item active" data-target="home-section"><i class="fas fa-home"></i> 后台首页</a></li>
+                        <li><a href="#" class="menu-item" data-target="users-section"><i class="fas fa-users"></i> 用户管理</a></li>
+                        <li><a href="#" class="menu-item" data-target="banks-section"><i class="fas fa-book"></i> 全局题库</a></li>
+                        <li><a href="#" class="menu-item" data-target="logs-section"><i class="fas fa-history"></i> 操作日志</a></li>
+                        <li><a href="#" class="menu-item" data-target="settings-section"><i class="fas fa-cog"></i> 系统设置</a></li>
+                    </ul>
+                </aside>
+
+                <main class="main-content">
+                    <div id="home-section" class="content-section active">
+                        <h2><i class="fas fa-home"></i> 管理员工作台</h2>
+                        <div class="stats-cards">
+                            <div class="stat-card">
+                                <i class="fas fa-users"></i>
+                                <h3 id="totalUsers">500</h3>
+                                <p>注册用户</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-book"></i>
+                                <h3 id="totalBanks">20</h3>
+                                <p>题库总数</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-question-circle"></i>
+                                <h3 id="totalQuestions">1200</h3>
+                                <p>累计题目</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-chart-line"></i>
+                                <h3 id="todayActive">156</h3>
+                                <p>今日活跃</p>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-title">系统状态</div>
+                            <div class="system-info-card">
+                                <h4><i class="fas fa-server"></i> 服务器信息</h4>
+                                <p>运行时间：<strong>365 天</strong></p>
+                                <p>系统版本：<strong>v1.0.0</strong></p>
+                                <p>最近备份：<strong>2026-01-10 03:00</strong></p>
+                            </div>
+                            <div class="system-info-card">
+                                <h4><i class="fas fa-database"></i> 数据库信息</h4>
+                                <p>数据库大小：<strong>256 MB</strong></p>
+                                <p>题目数据：<strong>1,200 条</strong></p>
+                                <p>用户数据：<strong>500 条</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="users-section" class="content-section">
+                        <h2><i class="fas fa-users"></i> 用户管理</h2>
+                        <div class="action-bar">
+                            <div>
+                                <input type="text" placeholder="搜索用户..." style="padding:8px 15px;border:1px solid #ddd;border-radius:5px;width:200px;">
+                                <select style="padding:8px 15px;border:1px solid #ddd;border-radius:5px;margin-left:10px;">
+                                    <option>全部角色</option>
+                                    <option>学生</option>
+                                    <option>教师</option>
+                                    <option>管理员</option>
+                                </select>
+                            </div>
+                            <button class="btn-primary" onclick="showAddUserModal()"><i class="fas fa-user-plus"></i> 添加用户</button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>用户名</th>
+                                    <th>姓名</th>
+                                    <th>角色</th>
+                                    <th>注册时间</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <tr>
+                                    <td>student001</td>
+                                    <td>张三</td>
+                                    <td>学生</td>
+                                    <td>2026-01-01</td>
+                                    <td><span class="status-badge status-active">正常</span></td>
+                                    <td>
+                                        <button class="btn-action btn-view-records">查看记录</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="banks-section" class="content-section">
+                        <h2><i class="fas fa-book"></i> 全局题库管理</h2>
+                        <div class="action-bar">
+                            <input type="text" placeholder="搜索题库..." style="padding:8px 15px;border:1px solid #ddd;border-radius:5px;width:200px;">
+                            <button class="btn-primary" onclick="showAddBankModal()"><i class="fas fa-plus"></i> 新建题库</button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>题库名称</th>
+                                    <th>创建者</th>
+                                    <th>题目数量</th>
+                                    <th>创建时间</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>高三英语3+2期末选择1</td>
+                                    <td>李老师</td>
+                                    <td>90</td>
+                                    <td>2026-01-10</td>
+                                    <td><span class="status-badge status-active">已发布</span></td>
+                                    <td>
+                                        <button class="btn-action btn-view">查看</button>
+                                        <button class="btn-action btn-edit">编辑</button>
+                                        <button class="btn-action btn-delete">删除</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>高三英语3+2期末选择2</td>
+                                    <td>李老师</td>
+                                    <td>50</td>
+                                    <td>2026-01-08</td>
+                                    <td><span class="status-badge status-active">已发布</span></td>
+                                    <td>
+                                        <button class="btn-action btn-view">查看</button>
+                                        <button class="btn-action btn-edit">编辑</button>
+                                        <button class="btn-action btn-delete">删除</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>数据结构基础题</td>
+                                    <td>系统</td>
+                                    <td>20</td>
+                                    <td>2026-01-05</td>
+                                    <td><span class="status-badge status-pending">审核中</span></td>
+                                    <td>
+                                        <button class="btn-action btn-view">查看</button>
+                                        <button class="btn-action btn-approve">通过</button>
+                                        <button class="btn-action btn-delete">拒绝</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="logs-section" class="content-section">
+                        <h2><i class="fas fa-history"></i> 操作日志</h2>
+                        <div class="action-bar">
+                            <div>
+                                <input type="date" style="padding:8px 15px;border:1px solid #ddd;border-radius:5px;">
+                                <select style="padding:8px 15px;border:1px solid #ddd;border-radius:5px;margin-left:10px;">
+                                    <option>全部类型</option>
+                                    <option>登录</option>
+                                    <option>操作</option>
+                                    <option>错误</option>
+                                </select>
+                            </div>
+                            <button class="btn-primary btn-danger"><i class="fas fa-trash"></i> 清空日志</button>
+                        </div>
+                        <div id="logsList">
+                            <div class="log-item">
+                                <div>
+                                    <span class="log-type log-login">登录</span>
+                                    <span class="log-info">管理员 admin 登录系统</span>
+                                </div>
+                                <span class="log-time">2026-01-10 09:30</span>
+                            </div>
+                            <div class="log-item">
+                                <div>
+                                    <span class="log-type log-action">操作</span>
+                                    <span class="log-info">审核通过题库《数据结构基础题》</span>
+                                </div>
+                                <span class="log-time">2026-01-10 09:15</span>
+                            </div>
+                            <div class="log-item">
+                                <div>
+                                    <span class="log-type log-action">操作</span>
+                                    <span class="log-info">禁用用户 student002</span>
+                                </div>
+                                <span class="log-time">2026-01-10 08:45</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="settings-section" class="content-section">
+                        <h2><i class="fas fa-cog"></i> 系统设置</h2>
+                        <div class="system-info-card">
+                            <h4>网站设置</h4>
+                            <div class="form-group">
+                                <label>网站名称</label>
+                                <input type="text" value="校园刷题宝">
+                            </div>
+                            <div class="form-group">
+                                <label>网站描述</label>
+                                <textarea rows="3">专为在校学生打造的刷题平台</textarea>
+                            </div>
+                            <button class="btn-primary">保存设置</button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <div class="modal" id="addUserModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>添加用户</h3>
+                <button class="close-modal" onclick="closeModal('addUserModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>用户名</label>
+                <input type="text" placeholder="请输入用户名">
+            </div>
+            <div class="form-group">
+                <label>姓名</label>
+                <input type="text" placeholder="请输入姓名">
+            </div>
+            <div class="form-group">
+                <label>角色</label>
+                <select>
+                    <option>学生</option>
+                    <option>教师</option>
+                    <option>管理员</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" placeholder="请输入密码">
+            </div>
+            <button class="btn-primary" style="width:100%;" onclick="alert('用户添加成功！');closeModal('addUserModal');">添加用户</button>
+        </div>
+    </div>
+
+    <div class="modal" id="addBankModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>新建题库</h3>
+                <button class="close-modal" onclick="closeModal('addBankModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>题库名称</label>
+                <input type="text" placeholder="请输入题库名称">
+            </div>
+            <div class="form-group">
+                <label>学科分类</label>
+                <select>
+                    <option>英语</option>
+                    <option>数学</option>
+                    <option>计算机</option>
+                    <option>其他</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>题库描述</label>
+                <textarea placeholder="请输入题库描述"></textarea>
+            </div>
+            <button class="btn-primary" style="width:100%;" onclick="alert('题库创建成功！');closeModal('addBankModal');">创建题库</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 校园刷题宝 版权所有</p>
+        </div>
+    </footer>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>

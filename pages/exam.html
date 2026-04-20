@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园刷题宝 - 在线刷题</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/exam.css">
+    <style>
+        .error-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .error-modal-content {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            padding: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .error-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .error-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .close-modal {
+            background: #eee;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .error-list {
+            margin-bottom: 20px;
+        }
+        .error-item {
+            padding: 10px;
+            border: 1px solid #f8d7da;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .error-item:hover {
+            background: #f8f9fa;
+        }
+        .error-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .error-item-answer {
+            font-size: 14px;
+            color: #666;
+        }
+        .your-answer {
+            color: #e74c3c;
+        }
+        .correct-answer {
+            color: #27ae60;
+        }
+        .error-detail {
+            display: none;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .modal-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-review {
+            background: #3498db;
+            color: white;
+        }
+        .btn-back {
+            background: #95a5a6;
+            color: white;
+        }
+        .bank-selector {
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        .bank-selector h2 {
+            margin-bottom: 20px;
+            color: #4a90e2;
+        }
+        .bank-list {
+            display: grid;
+            gap: 15px;
+        }
+        .bank-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            transition: all 0.3s;
+        }
+        .bank-item:hover {
+            border-color: #4a90e2;
+            background: #f5f9ff;
+        }
+        .bank-item h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        .bank-item p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+        .start-exam-btn {
+            padding: 10px 20px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .start-exam-btn:hover {
+            background: #3a80d2;
+        }
+        .exam-wrapper {
+            display: none;
+        }
+        .exam-wrapper.active {
+            display: block;
+        }
+        .btn-prev {
+            background: #95a5a6;
+            color: white;
+        }
+        .btn-next {
+            background: #4a90e2;
+            color: white;
+        }
+        .btn-submit {
+            background: #e74c3c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>校园刷题宝</h1>
+            </div>
+            <nav class="nav-links">
+                <a href="../index.html">首页</a>
+                <a href="student.html">学生中心</a>
+                <a href="exam.html" class="active">在线刷题</a>
+                <a href="#" id="logoutBtn">退出登录</a>
+            </nav>
+            <button class="menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <section class="bank-selector" id="bankSelector">
+        <h2><i class="fas fa-book"></i> 选择题库</h2>
+        <div class="bank-list">
+            <div class="bank-item">
+                <div>
+                    <h4>高三英语3+2期末选择1</h4>
+                    <p>共90题 | 选择题 | 难度：中等</p>
+                </div>
+                <button class="start-exam-btn" data-bank="english-1">开始刷题</button>
+            </div>
+            <div class="bank-item">
+                <div>
+                    <h4>高三英语3+2期末选择2</h4>
+                    <p>共50题 | 选择题 | 难度：简单</p>
+                </div>
+                <button class="start-exam-btn" data-bank="english-2">开始刷题</button>
+            </div>
+            <div class="bank-item">
+                <div>
+                    <h4>数据结构基础题</h4>
+                    <p>共20题 | 选择题 | 难度：较难</p>
+                </div>
+                <button class="start-exam-btn" data-bank="data-structure">开始刷题</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="exam-wrapper" id="examWrapper">
+        <div class="exam-container">
+            <div class="exam-header">
+                <h2 class="exam-title" id="examTitle">高三英语3+2期末选择1</h2>
+                <div class="exam-meta">
+                    <span><i class="fas fa-question-circle"></i> 共<span id="total-questions">90</span>题</span>
+                    <span><i class="fas fa-clock"></i> 剩余时间：<span id="countdown">100:00</span></span>
+                    <span><i class="fas fa-list-ol"></i> 当前第<span id="current-question-num">1</span>题</span>
+                </div>
+            </div>
+
+            <div class="exam-body">
+                <div class="question-box">
+                    <h3 class="question-title" id="question-title">加载中...</h3>
+                    <div class="option-list" id="option-list"></div>
+                </div>
+            </div>
+
+            <div class="exam-footer">
+                <button class="exam-btn btn-prev" id="prev-btn" disabled>上一题</button>
+                <div>
+                    <button class="exam-btn btn-next" id="next-btn">下一题</button>
+                    <button class="exam-btn btn-submit" id="submit-btn">提交试卷</button>
+                    <button class="exam-btn btn-back" id="back-to-bank" style="background:#95a5a6;color:white;">返回选题</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="error-modal" id="errorModal">
+        <div class="error-modal-content">
+            <div class="error-header">
+                <div class="error-title">错题回顾（共<span id="error-count">0</span>题）</div>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="error-list" id="errorList"></div>
+            <div class="modal-footer">
+                <button class="modal-btn btn-review" id="reviewBtn">重新答题</button>
+                <button class="modal-btn btn-back" id="backBtn">返回学生中心</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/common.js"></script>
+    <script>
+        let questionBank = [];
+        let originalQuestionBank = [];
+        let currentIndex = 0;
+        let userAnswers = {};
+        let countdownTimer = null;
+        let errorQuestions = [];
+        let currentBankId = '';
+
+        const questionTitle = document.getElementById('question-title');
+        const optionList = document.getElementById('option-list');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const currentQuestionNum = document.getElementById('current-question-num');
+        const totalQuestions = document.getElementById('total-questions');
+        const countdown = document.getElementById('countdown');
+        const examTitle = document.getElementById('examTitle');
+        const bankSelector = document.getElementById('bankSelector');
+        const examWrapper = document.getElementById('examWrapper');
+        const backToBankBtn = document.getElementById('back-to-bank');
+        
+        const errorModal = document.getElementById('errorModal');
+        const errorList = document.getElementById('errorList');
+        const errorCount = document.getElementById('error-count');
+        const closeModal = document.getElementById('closeModal');
+        const reviewBtn = document.getElementById('reviewBtn');
+        const backBtn = document.getElementById('backBtn');
+
+        document.querySelectorAll('.start-exam-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentBankId = this.getAttribute('data-bank');
+                loadQuestionBank(currentBankId);
+            });
+        });
+
+        backToBankBtn.addEventListener('click', () => {
+            clearInterval(countdownTimer);
+            resetExamState();
+            examWrapper.classList.remove('active');
+            bankSelector.style.display = 'block';
+        });
+
+        // 处理URL参数，从student.html传递过来的bank参数
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            const results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // 页面加载时检查URL参数
+        window.onload = function() {
+            const bankParam = getUrlParameter('bank');
+            if (bankParam) {
+                currentBankId = bankParam;
+                loadQuestionBank(currentBankId);
+            }
+        };
+
+        async function loadQuestionBank(bankId) {
+            let jsonPath = '';
+            let title = '';
+            
+            switch(bankId) {
+                case 'english-1':
+                    jsonPath = '../assets/data/english_final_exam_1.json';
+                    title = '高三英语3+2期末选择1';
+                    break;
+                case 'english-2':
+                    jsonPath = '../assets/data/english_final_exam_2.json';
+                    title = '高三英语3+2期末选择2';
+                    break;
+                case 'data-structure':
+                    jsonPath = '../assets/data/structureQuestions.json';
+                    title = '数据结构基础题';
+                    break;
+                default:
+                    jsonPath = '../assets/data/english_final_exam_1.json';
+                    title = '高三英语3+2期末选择1';
+            }
+
+            try {
+                const response = await fetch(jsonPath);
+                if (!response.ok) throw new Error('题库加载失败');
+                const data = await response.json();
+                
+                originalQuestionBank = [...data.questions];
+                questionBank = shuffleArray([...originalQuestionBank]);
+                questionBank = questionBank.map(question => shuffleQuestionOptions(question));
+                
+                examTitle.textContent = title;
+                totalQuestions.textContent = questionBank.length;
+                
+                bankSelector.style.display = 'none';
+                examWrapper.classList.add('active');
+                
+                renderQuestion(0);
+                startCountdown();
+            } catch (error) {
+                questionTitle.textContent = '题库加载失败，请刷新页面！';
+                console.error('题库加载错误：', error);
+            }
+        }
+
+        function renderQuestion(index) {
+            if (questionBank.length === 0) return;
+            
+            const question = questionBank[index];
+            questionTitle.textContent = `${index + 1}. ${question.title.replace(/^\d+\./, '')}`;
+            currentQuestionNum.textContent = index + 1;
+            optionList.innerHTML = '';
+            
+            question.options.forEach((opt, i) => {
+                const optionChar = String.fromCharCode(65 + i);
+                const optionItem = document.createElement('div');
+                optionItem.className = 'option-item';
+                optionItem.innerHTML = `
+                    <input type="radio" name="answer" id="opt${optionChar}" value="${optionChar}">
+                    <label for="opt${optionChar}">${optionChar}. ${opt}</label>
+                `;
+                optionList.appendChild(optionItem);
+
+                if (userAnswers[question.id] === optionChar) {
+                    document.getElementById(`opt${optionChar}`).checked = true;
+                }
+            });
+
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === questionBank.length - 1;
+        }
+
+        function saveCurrentAnswer() {
+            const question = questionBank[currentIndex];
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (selectedOption) {
+                userAnswers[question.id] = selectedOption.value;
+            }
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                saveCurrentAnswer();
+                currentIndex--;
+                renderQuestion(currentIndex);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < questionBank.length - 1) {
+                saveCurrentAnswer();
+                currentIndex++;
+                renderQuestion(currentIndex);
+            }
+        });
+
+        submitBtn.addEventListener('click', () => {
+            if (questionBank.length === 0) return;
+            
+            saveCurrentAnswer();
+            
+            let correctCount = 0;
+            errorQuestions = [];
+            
+            questionBank.forEach(question => {
+                const userAns = userAnswers[question.id];
+                if (userAns === question.answer) {
+                    correctCount++;
+                } else {
+                    errorQuestions.push({
+                        id: question.id,
+                        title: question.title,
+                        options: question.options,
+                        yourAnswer: userAns || '未作答',
+                        correctAnswer: question.answer,
+                        correctContent: question.options[question.answer.charCodeAt(0) - 65]
+                    });
+                }
+            });
+            
+            const score = (correctCount / questionBank.length) * 100;
+            clearInterval(countdownTimer);
+            
+            saveErrorToStorage(errorQuestions, score);
+            showErrorModal(score, correctCount);
+        });
+
+        function saveErrorToStorage(errors, score) {
+            let history = JSON.parse(localStorage.getItem('examHistory') || '[]');
+            history.unshift({
+                date: new Date().toLocaleString(),
+                bankId: currentBankId,
+                score: score.toFixed(1),
+                total: questionBank.length,
+                correct: questionBank.length - errors.length,
+                errors: errors
+            });
+            if (history.length > 20) history = history.slice(0, 20);
+            localStorage.setItem('examHistory', JSON.stringify(history));
+        }
+
+        function showErrorModal(score, correctCount) {
+            errorCount.textContent = errorQuestions.length;
+            errorList.innerHTML = '';
+            
+            if (errorQuestions.length === 0) {
+                errorList.innerHTML = '<div style="text-align:center;padding:20px;color:#27ae60;">恭喜！你没有错题 😊</div>';
+            } else {
+                errorQuestions.forEach((error, index) => {
+                    const errorItem = document.createElement('div');
+                    errorItem.className = 'error-item';
+                    errorItem.innerHTML = `
+                        <div class="error-item-title">${index + 1}. ${error.title.replace(/^\d+\./, '')}</div>
+                        <div class="error-item-answer">
+                            你的答案：<span class="your-answer">${error.yourAnswer}</span> | 
+                            正确答案：<span class="correct-answer">${error.correctAnswer}（${error.correctContent || ''}）</span>
+                        </div>
+                        <div class="error-detail" id="detail-${error.id}">
+                            <div style="font-weight: 600; margin-bottom: 5px;">题目详情：</div>
+                            ${error.options.map((opt, i) => {
+                                const char = String.fromCharCode(65 + i);
+                                let color = '';
+                                if (char === error.correctAnswer) color = 'color: #27ae60;';
+                                else if (char === error.yourAnswer) color = 'color: #e74c3c;';
+                                return `<div style="${color}">${char}. ${opt}</div>`;
+                            }).join('')}
+                        </div>
+                    `;
+                    errorItem.addEventListener('click', () => {
+                        const detail = document.getElementById(`detail-${error.id}`);
+                        detail.style.display = detail.style.display === 'block' ? 'none' : 'block';
+                    });
+                    errorList.appendChild(errorItem);
+                });
+            }
+            
+            errorModal.style.display = 'flex';
+        }
+
+        reviewBtn.addEventListener('click', () => {
+            errorModal.style.display = 'none';
+            resetExamState();
+            questionBank = shuffleArray([...originalQuestionBank]);
+            questionBank = questionBank.map(question => shuffleQuestionOptions(question));
+            renderQuestion(0);
+            startCountdown();
+        });
+
+        backBtn.addEventListener('click', () => {
+            window.location.href = 'student.html';
+        });
+
+        closeModal.addEventListener('click', () => {
+            errorModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === errorModal) {
+                errorModal.style.display = 'none';
+            }
+        });
+
+        function shuffleArray(arr) {
+            const newArr = [...arr];
+            for (let i = newArr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+            return newArr;
+        }
+
+        function shuffleQuestionOptions(question) {
+            const optionWithChar = question.options.map((opt, i) => ({
+                char: String.fromCharCode(65 + i),
+                content: opt
+            }));
+            const shuffledOptions = shuffleArray(optionWithChar);
+            const newOptions = shuffledOptions.map(item => item.content);
+            let newAnswer = '';
+            const originalCorrectContent = question.options[question.answer.charCodeAt(0) - 65];
+            shuffledOptions.forEach(item => {
+                if (item.content === originalCorrectContent) {
+                    newAnswer = String.fromCharCode(65 + shuffledOptions.indexOf(item));
+                }
+            });
+            return { ...question, options: newOptions, answer: newAnswer };
+        }
+
+        function startCountdown() {
+            let minutes = 100;
+            let seconds = 0;
+            countdown.textContent = `${minutes.toString().padStart(2, '0')}:00`;
+            
+            clearInterval(countdownTimer);
+            countdownTimer = setInterval(() => {
+                seconds--;
+                if (seconds < 0) {
+                    minutes--;
+                    seconds = 59;
+                }
+                const formattedMin = minutes.toString().padStart(2, '0');
+                const formattedSec = seconds.toString().padStart(2, '0');
+                countdown.textContent = `${formattedMin}:${formattedSec}`;
+                
+                if (minutes === 0 && seconds === 0) {
+                    clearInterval(countdownTimer);
+                    alert('时间到！自动提交试卷');
+                    submitBtn.click();
+                }
+            }, 1000);
+        }
+
+        function resetExamState() {
+            currentIndex = 0;
+            userAnswers = {};
+            errorQuestions = [];
+            countdown.textContent = '100:00';
+        }
+
+        window.addEventListener('beforeunload', () => {
+            clearInterval(countdownTimer);
+        });
+    </script>
+</body>
+</html>
