@@ -6,7 +6,7 @@
 // API 基础配置
 const API_BASE_URL = window.location.hostname === 'localhost' 
   ? 'http://localhost:3000/api' 
-  : 'http://8.215.85.10:3000/api';
+  : 'http://8.215.85.10/api';
 
 // 存储键名
 const TOKEN_KEY = 'access_token';
